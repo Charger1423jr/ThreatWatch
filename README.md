@@ -27,6 +27,11 @@ an issue that still challenges modern Anti-Virus detectors to this day.
 
 ---
 
+## How to Run
+1. Ensure .NET Framework is installed on your device and you can access and run C# files
+2. Open the Command Prompt at File Location
+3. enter commands `dotnet build` and `dotnet run`
+
 ### Notes and Warnings
 - This is not a Anti-Virus program
 - This Program is not to be used as a defender system
