@@ -21,20 +21,23 @@ namespace ThreatWatch
                 {
                     try
                     {
-                        string path = process.MainModule.FileName;
-                        string name = process.ProcessName;
-                        string fileName = Path.GetFileName(path);
-                        long memory = process.WorkingSet64;
+                        if (process.MainModule != null)
+                        {
+                            string path = process.MainModule.FileName;
+                            string name = process.ProcessName;
+                            string fileName = Path.GetFileName(path);
+                            long memory = process.WorkingSet64;
 
-                        bool isTrusted = whitelist.IsTrusted(name) || whitelist.IsTrusted(fileName);
+                            bool isTrusted = whitelist.IsTrusted(name) || whitelist.IsTrusted(fileName);
 
-                        int points = CalculatePoints(path, name, fileName, whitelist);
-                        string trustedText = isTrusted ? "(Whitelisted)" : "";
+                            int points = CalculatePoints(path, name, fileName, whitelist);
+                            string trustedText = isTrusted ? "(Whitelisted)" : "";
 
-                        string reportLine = $"File: {name} | Path: {path} | Memory: {memory / 1024} KB | Points: {points} {trustedText}";
+                            string reportLine = $"File: {name} | Path: {path} | Memory: {memory / 1024} KB | Points: {points} {trustedText}";
 
-                        Console.WriteLine(reportLine);
-                        writer.WriteLine(reportLine);
+                            Console.WriteLine(reportLine);
+                            writer.WriteLine(reportLine);
+                        }
                     }
                     catch (System.ComponentModel.Win32Exception ex)
                     {
